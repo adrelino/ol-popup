@@ -117,6 +117,7 @@ var Popup = function (_Overlay) {
         var that = _this;
         _this.closer.addEventListener('click', function (evt) {
             that.container.style.display = 'none';
+            that.onCloseCallback && that.onCloseCallback();
             that.closer.blur();
             evt.preventDefault();
         }, false);
@@ -141,7 +142,7 @@ var Popup = function (_Overlay) {
 
     createClass(Popup, [{
         key: 'show',
-        value: function show(coord, html) {
+        value: function show(coord, html, onCloseCallback) {
             if (html instanceof HTMLElement) {
                 this.content.innerHTML = "";
                 this.content.appendChild(html);
@@ -150,6 +151,7 @@ var Popup = function (_Overlay) {
             }
             this.container.style.display = 'block';
             this.content.scrollTop = 0;
+            this.onCloseCallback = onCloseCallback;
             this.setPosition(coord);
             return this;
         }

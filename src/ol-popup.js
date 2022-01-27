@@ -40,6 +40,7 @@ export default class Popup extends Overlay {
         var that = this;
         this.closer.addEventListener('click', function(evt) {
             that.container.style.display = 'none';
+            that.onCloseCallback && that.onCloseCallback();
             that.closer.blur();
             evt.preventDefault();
         }, false);
@@ -59,7 +60,7 @@ export default class Popup extends Overlay {
     * @param {String|HTMLElement} html String or element of HTML to display within the popup.
     * @returns {Popup} The Popup instance
     */
-    show(coord, html) {
+    show(coord, html, onCloseCallback) {
         if (html instanceof HTMLElement) {
             this.content.innerHTML = "";
             this.content.appendChild(html);
@@ -68,6 +69,7 @@ export default class Popup extends Overlay {
         }
         this.container.style.display = 'block';
         this.content.scrollTop = 0;
+        this.onCloseCallback = onCloseCallback;
         this.setPosition(coord);
         return this;
     }

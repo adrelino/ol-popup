@@ -4,8 +4,8 @@ import Overlay from 'ol/Overlay';
 * OpenLayers Popup Overlay.
 * See [the examples](./examples) for usage. Styling can be done via CSS.
 * @constructor
-* @extends {ol.Overlay}
-* @param {olx.OverlayOptions} opt_options options as defined by ol.Overlay. Defaults to
+* @extends {Overlay}
+* @param {import('ol/Overlay').Options} opt_options options as defined by ol.Overlay. Defaults to
 * `{autoPan: true, autoPanAnimation: {duration: 250}}`
 */
 export default class Popup extends Overlay {
@@ -56,7 +56,7 @@ export default class Popup extends Overlay {
 
     /**
     * Show the popup.
-    * @param {ol.Coordinate} coord Where to anchor the popup.
+    * @param {import("ol/coordinate.js").Coordinate|undefined} coord Where to anchor the popup.
     * @param {String|HTMLElement} html String or element of HTML to display within the popup.
     * @returns {Popup} The Popup instance
     */
@@ -123,10 +123,4 @@ export default class Popup extends Overlay {
         return this.container.style.display == 'block';
     }
 
-}
-
-// Expose Popup as ol.Overlay.Popup if using a full build of
-// OpenLayers
-if (window.ol && window.ol.Overlay) {
-    window.ol.Overlay.Popup = Popup;
 }
